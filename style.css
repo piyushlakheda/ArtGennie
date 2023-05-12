@@ -1,0 +1,138 @@
+* {
+
+    margin: 0px;
+
+
+}
+
+
+nav {
+
+    display: flex;
+
+    justify-content: space-around;
+
+    align-items: center;
+
+    min-height: 8vh;
+
+    background-blend-mode: luminosity;
+
+    font-family: "Montserrat", sans-serif;
+
+}
+
+.heading {
+
+    color: white;
+
+    text-transform: uppercase;
+
+    letter-spacing: 5px;
+
+    font-size: 20px;
+
+}
+
+.nav-links {
+
+    display: flex;
+
+    justify-content: space-around;
+
+    width: 30%;
+
+}
+
+.nav-links li {
+
+    list-style: none;
+
+}
+
+.nav-links a {
+
+    color: white;
+
+    text-decoration: none;
+
+    letter-spacing: 5px;
+
+    font-weight: normal;
+
+    font-size: 15px;
+
+    padding: 14px 16px;
+
+}
+
+.nav-links a:hover:not(.active) {
+
+    background-image: linear-gradient(to top, #c79081 0%, #dfa579 100%);}
+
+
+.nav-links li a.active {
+
+    background-color: #e03b25;
+
+}
+
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,100,700,900);
+
+
+
+a {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato';
+}
+
+h1 {
+    font-size: 2.8em;
+    padding: 10px 0;
+    font-weight: 800;
+}
+
+p {
+    font-size: 1.1em;
+    font-weight: 100;
+    letter-spacing: 5px;
+}
+
+.banner {
+
+    margin: 16% ;
+    text-align: center;
+    color: white;
+}
+
+
+.btn-bgstroke {
+    font-size: 20px;
+    display: inline-block;
+    border: 1px solid white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 300;
+    margin-top: 30px;
+}
+
+.btn-bgstroke:hover {
+    
+    background-image: linear-gradient(to top, #c79081 0%, #dfa579 100%);}
+
+body,
+html {
+    
+    
+    background-image: url(./img/rainy-night-artistic-painting-4k_1540748496.jpg.jpg);
+    
+    height: 100%;
+    
+
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

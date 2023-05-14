@@ -52,7 +52,7 @@ nav {
 
 .nav-links a {
 
-    color: white;
+    color: #e03b25;
 
     text-decoration: none;
 
@@ -68,12 +68,15 @@ nav {
 
 .nav-links a:hover:not(.active) {
 
-    background-image: linear-gradient(to top, #c79081 0%, #dfa579 100%);}
+    background-image: linear-gradient(to top, #c79081 0%, #dfa579 100%);
+    color: #ffffff;
+  }
 
 
 .nav-links li a.active {
 
     background-color: #e03b25;
+    color: #fff;
 
 }
 

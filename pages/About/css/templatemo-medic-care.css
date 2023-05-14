@@ -39,7 +39,7 @@ body {
     background: var(--white-color);
     font-family: var(--body-font-family);    
     position: relative;
-    padding-top: 94px;
+    padding-top: 30px;
 }
 
 /*---------------------------------------
@@ -671,7 +671,7 @@ strong {
 
 @media screen and (max-width: 991px) {
   body {
-    padding-top: 74px;
+    padding-top: 34px;
   }
 
   h1 {

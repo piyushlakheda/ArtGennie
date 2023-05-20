@@ -34,23 +34,34 @@
               <h3>Sign Up</h3>
               <p class="mb-4">To enter the world of creativity Sign up!</p>
             </div>
-            <div class="container">
-              <form name="registration_form" id="registration_form" method="post" action="#"
-                enctype="multipart/form-data">
-                <div class="row">
-
-                  <div class="col-sm-4">
-                    <div class="form-group">
-                      <label for="email">Email</label>
+            
+              <form   method="post" action="#">
+                <div class="form-group first">
+                     
                       <input type="text" name="email" id="email" class="form-control" placeholder="Enter your email">
-                    </div>
+                </div>
 
-                    <div class="form-group">
-                      <label for="password">Password</label>
+                    <div class="form-group last mb-3">
+                      
                       <input type="password" name="password" id="password" class="form-control"
                         placeholder="Enter your password">
                     </div>
+                  
                     <button type="button" id="register" name="register" class="btn btn-success">Register Now</button>
+                    
+              <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span>
+              
+              <div class="social-login">
+                <a href="#" class="facebook btn d-flex justify-content-center align-items-center">
+                  <span class="icon-facebook mr-3"></span> Login with Facebook
+                </a>
+                <a href="#" class="twitter btn d-flex justify-content-center align-items-center">
+                  <span class="icon-twitter mr-3"></span> Login with  Twitter
+                </a>
+                <a href="#" class="google btn d-flex justify-content-center align-items-center">
+                  <span class="icon-google mr-3"></span> Login with  Google
+                </a>
+              </div>
                   </div><!-- end col -->
               </form>
             </div>
@@ -70,7 +81,7 @@
 
 
 </body>
-<script src = "auth.js"></script>
+
 <script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";

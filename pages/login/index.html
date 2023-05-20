@@ -61,12 +61,10 @@
               <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span>
 
               <div class="social-login">
-                <a href="#" class="facebook btn d-flex justify-content-center align-items-center">
+                <a href="#" class="facebook btn d-flex justify-content-center align-items-center" id="facebook-login">
                   <span class="icon-facebook mr-3"></span> Login with Facebook
                 </a>
-                <a href="#" class="twitter btn d-flex justify-content-center align-items-center">
-                  <span class="icon-twitter mr-3"></span> Login with Twitter
-                </a>
+              
                 <a href="#" class="google btn d-flex justify-content-center align-items-center" id="google-login-login">
                   <span class="icon-google mr-3"></span> Login with Google
                 </a>
@@ -98,7 +96,7 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
   import {
     getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider,
-    signInWithRedirect, getRedirectResult
+    signInWithRedirect, getRedirectResult , signInWithPopup, FacebookAuthProvider
   } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
 
@@ -119,6 +117,8 @@
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider(app);
+  const facebookprovider = new FacebookAuthProvider();
+
   console.log(app);
 
 
@@ -173,6 +173,46 @@
     sessionStorage.setItem("userEmail", user.email);
     window.location.href = "/pages/Store/index.html";
   }
+
+
+  document.getElementById("facebook-login").addEventListener("click", function() {
+		  signInWithPopup(auth, facebookprovider)
+		  .then((result) => {
+		    // The signed-in user info.
+		    const user = result.user;
+        if (result.user) {
+        // User is already signed in
+        handleSuccessfulSignIn(result.user);
+      }
+
+      function handleSuccessfulSignIn(user) {
+    sessionStorage.setItem("isLoggedIn", true);
+    sessionStorage.setItem("userEmail", user.email);
+    window.location.href = "/pages/Store/index.html";
+  }
+
+		    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+		    const credential = FacebookAuthProvider.credentialFromResult(result);
+		    const accessToken = credential.accessToken;
+		    
+		    alert("Welcome "+user.displayName);
+		    console.log(user);
+		    // ...
+		  })
+		  .catch((error) => {
+		    // Handle Errors here.
+		    const errorCode = error.code;
+		    const errorMessage = error.message;
+		    console.log(errorMessage);
+		    // The email of the user's account used.
+		    const email = error.customData.email;
+		    // The AuthCredential type that was used.
+		    const credential = FacebookAuthProvider.credentialFromError(error);
+
+		    // ...
+		  });		  		  
+	  });
+
 
 
 

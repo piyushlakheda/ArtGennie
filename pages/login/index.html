@@ -45,8 +45,8 @@
                 <input type="password" name="login_password" id="login_password" class="form-control"
                   placeholder="Enter your password">
               </div>
-              <button type="button" id="login" name="login" class="btn btn-success">Login</button>
-              <button type="button" id="logout" name="logout" class="btn btn-success">Logout</button>
+              
+             
               <div class="d-flex mb-5 align-items-center">
                 <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
                   <input type="checkbox" checked="checked"/>
@@ -54,8 +54,9 @@
                 </label>
                 <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span> 
               </div>
+              <button type="button" id="login" name="login" class="btn btn-block btn-primary">Login</button>
 
-              <input type="submit" value="Log In" class="btn btn-block btn-primary">
+              
 
               <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span>
               
@@ -117,38 +118,32 @@
 
 
   document.getElementById("login").addEventListener("click", function () {
-    var email = document.getElementById("login_email").value;
-    var password = document.getElementById("login_password").value;
+  var email = document.getElementById("login_email").value;
+  var password = document.getElementById("login_password").value;
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        console.log(user);
-        alert(user.email + " Login successfully!!!");
-        document.getElementById('logout').style.display = 'block';
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
-        alert(errorMessage);
-      });
-  });
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      console.log(user);
 
-  document.getElementById("logout").addEventListener("click", function () {
-    signOut(auth).then(() => {
-      // Sign-out successful.
-      console.log('Sign-out successful.');
-      alert('Sign-out successful.');
-      document.getElementById('logout').style.display = 'none';
-    }).catch((error) => {
-      // An error happened.
-      console.log('An error happened.');
+      // Store login status and email in session storage
+      sessionStorage.setItem("isLoggedIn", true);
+      sessionStorage.setItem("userEmail", user.email);
+
+      window.location.href = "/pages/Store/index.html";
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorMessage);
+      alert(errorMessage);
     });
-  });
+});
 
+
+ 
 
 
 

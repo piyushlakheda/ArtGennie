@@ -47,7 +47,7 @@
                         placeholder="Enter your password">
                     </div>
                   
-                    <button type="button" id="register" name="register" class="btn btn-success">Register Now</button>
+                    <button type="button" id="register" name="register" class="btn btn-block btn-primary">Register Now</button>
                     
               <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span>
               
@@ -114,7 +114,9 @@
         // Signed in 
         const user = userCredential.user;
         console.log(user);
-        alert("Registration successfully!!");
+        window.location.href = "/pages/login/index.html";
+
+       
         // ...
       })
 

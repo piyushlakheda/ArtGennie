@@ -34,50 +34,52 @@
               <h3>Sign Up</h3>
               <p class="mb-4">To enter the world of creativity Sign up!</p>
             </div>
-            
-              <form   method="post" action="#">
-                <div class="form-group first">
-                     
-                      <input type="text" name="email" id="email" class="form-control" placeholder="Enter your email">
-                </div>
 
-                    <div class="form-group last mb-3">
-                      
-                      <input type="password" name="password" id="password" class="form-control"
-                        placeholder="Enter your password">
-                    </div>
-                  
-                    <button type="button" id="register" name="register" class="btn btn-block btn-primary">Register Now</button>
-                    
+            <form method="post" action="#">
+              <div class="form-group first">
+
+                <input type="text" name="email" id="email" class="form-control" placeholder="Enter your email">
+              </div>
+
+              <div class="form-group last mb-3">
+
+                <input type="password" name="password" id="password" class="form-control"
+                  placeholder="Enter your password">
+              </div>
+
+              <button type="button" id="register" name="register" class="btn btn-block btn-primary">Register
+                Now</button>
+
               <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span>
-              
+
               <div class="social-login">
                 <a href="#" class="facebook btn d-flex justify-content-center align-items-center">
                   <span class="icon-facebook mr-3"></span> Login with Facebook
                 </a>
                 <a href="#" class="twitter btn d-flex justify-content-center align-items-center">
-                  <span class="icon-twitter mr-3"></span> Login with  Twitter
+                  <span class="icon-twitter mr-3"></span> Login with Twitter
                 </a>
-                <a href="#" class="google btn d-flex justify-content-center align-items-center">
-                  <span class="icon-google mr-3"></span> Login with  Google
+                <a href="#" class="google btn d-flex justify-content-center align-items-center" id="google-login">
+                  <span class="icon-google mr-3"></span> Login with Google
                 </a>
+
               </div>
-                  </div><!-- end col -->
-              </form>
-            </div>
-          </div>
+          </div><!-- end col -->
+          </form>
         </div>
       </div>
-
-
     </div>
+  </div>
+
+
+  </div>
 
 
 
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
 
 
 </body>
@@ -85,7 +87,10 @@
 <script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+  import {
+    getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider,
+    signInWithRedirect, getRedirectResult
+  } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
@@ -103,6 +108,8 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const provider = new GoogleAuthProvider(app);
+
   console.log(app);
 
   document.getElementById("register").addEventListener("click", function () {
@@ -114,9 +121,13 @@
         // Signed in 
         const user = userCredential.user;
         console.log(user);
-        window.location.href = "/pages/login/index.html";
 
-       
+        sessionStorage.setItem("isLoggedIn", true);
+        sessionStorage.setItem("userEmail", user.email);
+
+        window.location.href = "/pages/Store/index.html";
+
+
         // ...
       })
 
@@ -128,6 +139,34 @@
         alert(error);
       });
   });
+
+
+  document.getElementById("google-login").addEventListener("click", function () {
+    // Redirect to Google sign-in page
+    signInWithRedirect(auth, provider);
+  });
+
+  // Check if there is a redirect result
+  getRedirectResult(auth)
+    .then((result) => {
+      if (result.user) {
+        // User is already signed in
+        handleSuccessfulSignIn(result.user);
+      }
+    })
+    .catch((error) => {
+      // Handle Errors here
+      console.log(error);
+    });
+
+
+
+  function handleSuccessfulSignIn(user) {
+    sessionStorage.setItem("isLoggedIn", true);
+    sessionStorage.setItem("userEmail", user.email);
+    window.location.href = "/pages/Store/index.html";
+  }
+
 
 </script>
 

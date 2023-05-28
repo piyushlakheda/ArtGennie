@@ -6,76 +6,6 @@
 }
 
 
-nav {
-
-    display: flex;
-
-    justify-content: space-around;
-
-    align-items: center;
-
-    min-height: 8vh;
-
-    background-blend-mode: luminosity;
-
-    font-family: "Montserrat", sans-serif;
-
-}
-
-.heading {
-
-    color: white;
-
-    text-transform: uppercase;
-
-    letter-spacing: 5px;
-
-    font-size: 20px;
-
-}
-
-.nav-links {
-
-    display: flex;
-
-    justify-content: space-around;
-
-    width: 30%;
-
-}
-
-.nav-links li {
-
-    list-style: none;
-
-}
-
-.nav-links a {
-
-    color: white;
-
-    text-decoration: none;
-
-    letter-spacing: 5px;
-
-    font-weight: normal;
-
-    font-size: 20px;
-
-    padding: 14px 16px;
-
-}
-
-.nav-links a:hover:not(.active) {
-
-    background-image: linear-gradient(to top, #c79081 0%, #dfa579 100%);}
-
-
-.nav-links li a.active {
-
-    background-color: #e03b25;
-
-}
 
 @import url(https://fonts.googleapis.com/css?family=Lato:400,300,100,700,900);
 
@@ -133,7 +63,7 @@ body,
 html {
     
     
-    background-image: url(img/bg.png);
+    background-image: url(assets/img/bg.png);
     
     height: 100%;
     
@@ -143,3 +73,4 @@ html {
     background-repeat: no-repeat;
     background-size: cover;
 }
+

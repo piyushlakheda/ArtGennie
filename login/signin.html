@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+
+  <!-- Style -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>ArtGennie</title>
+</head>
+
+<body>
+
+
+  <div class="d-lg-flex half">
+    <div class="bg order-1 order-md-2" style="background-image: url('images/HANDMADE1.jpeg');"></div>
+    <div class="contents order-2 order-md-1">
+
+      <div class="containe ">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-md-7">
+            <div class="mb-4">
+              <h3>Sign In</h3>
+              <p class="mb-4">To enter the world of creativity Login!</p>
+            </div>
+            <form method="post" action="#">
+              <div class="form-group first">
+                <input type="text" name="login_email" id="login_email" class="form-control"
+                  placeholder="Enter your email">
+              </div>
+
+              <div class="form-group last mb-3">
+
+                <input type="password" name="login_password" id="login_password" class="form-control"
+                  placeholder="Enter your password">
+              </div>
+
+
+              <div class="d-flex mb-5 align-items-center">
+                <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
+                  <input type="checkbox" checked="checked" />
+                  <div class="control__indicator"></div>
+                </label>
+                <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span>
+              </div>
+              <button type="button" id="login" name="login" class="btn btn-block btn-primary">Login</button>
+
+
+
+              <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span>
+
+              <div class="social-login">
+                <a href="#" class="facebook btn d-flex justify-content-center align-items-center" id="facebook-login">
+                  <span class="icon-facebook mr-3"></span> Login with Facebook
+                </a>
+              
+                <a href="#" class="google btn d-flex justify-content-center align-items-center" id="google-login-login">
+                  <span class="icon-google mr-3"></span> Login with Google
+                </a>
+
+              </div>
+          </div><!-- end col -->
+        </div>
+        <!-- end col -->
+
+      </div><!--  end row -->
+      </form>
+    </div>
+  </div>
+  </div>
+  </div>
+
+
+  </div>
+
+
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+  import {
+    getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider,
+    signInWithRedirect, getRedirectResult , signInWithPopup, FacebookAuthProvider
+  } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+
+
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDpwGYWjlZdPG63a4sQELY0Qi3zvRVtRm8",
+    authDomain: "artgennie-87cb0.firebaseapp.com",
+    projectId: "artgennie-87cb0",
+    storageBucket: "artgennie-87cb0.appspot.com",
+    messagingSenderId: "361617182611",
+    appId: "1:361617182611:web:fe6cd861bd8656a418a266"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider(app);
+  const facebookprovider = new FacebookAuthProvider();
+
+  console.log(app);
+
+
+
+  document.getElementById("login").addEventListener("click", function () {
+    var email = document.getElementById("login_email").value;
+    var password = document.getElementById("login_password").value;
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        console.log(user);
+
+        // Store login status and email in session storage
+        sessionStorage.setItem("isLoggedIn", true);
+        sessionStorage.setItem("userEmail", user.email);
+
+        window.location.href = "/index.html";
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        alert(errorMessage);
+      });
+  });
+
+
+  document.getElementById("google-login-login").addEventListener("click", function () {
+    // Redirect to Google sign-in page
+    signInWithRedirect(auth, provider);
+  });
+
+  // Check if there is a redirect result
+  getRedirectResult(auth)
+    .then((result) => {
+      if (result.user) {
+        // User is already signed in
+        handleSuccessfulSignIn(result.user);
+      }
+    })
+    .catch((error) => {
+      // Handle Errors here
+      console.log(error);
+    });
+
+
+  function handleSuccessfulSignIn(user) {
+    sessionStorage.setItem("isLoggedIn", true);
+    sessionStorage.setItem("userEmail", user.email);
+    window.location.href = "/index.html";
+  }
+
+
+  document.getElementById("facebook-login").addEventListener("click", function() {
+		  signInWithPopup(auth, facebookprovider)
+		  .then((result) => {
+		    // The signed-in user info.
+		    const user = result.user;
+        if (result.user) {
+        // User is already signed in
+        handleSuccessfulSignIn(result.user);
+      }
+
+      function handleSuccessfulSignIn(user) {
+    sessionStorage.setItem("isLoggedIn", true);
+    sessionStorage.setItem("userEmail", user.email);
+    window.location.href = "/index.html";
+  }
+
+		    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+		    const credential = FacebookAuthProvider.credentialFromResult(result);
+		    const accessToken = credential.accessToken;
+		    
+		    alert("Welcome "+user.displayName);
+		    console.log(user);
+		    // ...
+		  })
+		  .catch((error) => {
+		    // Handle Errors here.
+		    const errorCode = error.code;
+		    const errorMessage = error.message;
+		    console.log(errorMessage);
+		    // The email of the user's account used.
+		    const email = error.customData.email;
+		    // The AuthCredential type that was used.
+		    const credential = FacebookAuthProvider.credentialFromError(error);
+
+		    // ...
+		  });		  		  
+	  });
+
+
+
+
+
+
+
+</script>
+
+</html>
